@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function calcularMedia() {
+            var nome = document.getElementById("nome").value;
+            var nota1 = parseFloat(document.getElementById("nota1").value);
+            var nota2 = parseFloat(document.getElementById("nota2").value);
+
+            if (isNaN(nota1) || isNaN(nota2) || nota1 > 10 || nota2 > 10) {
+                alert("Digite notas válidas (até 10)!");
+                return;
+            }
+
+            var media = (nota1 + nota2) / 2;
+            var mensagem = "";
+            var cor = "";
+
+            if (media >= 7) {
+                mensagem = "Parabéns " + nome + "! Você foi aprovado(a)!";
+                cor = "blue";
+            } else if (media >= 3) {
+                mensagem = "Atenção " + nome + ", você está em recuperação";
+                cor = "green";
+            } else {
+                mensagem = "Ops " + nome + ", você foi reprovado";
+                cor = "red";
+            }
+
+            document.getElementById("resultado").innerHTML = "<span style='color: " + cor + ";'>" + mensagem + "</span>";
+
+            notas_alunos.push(media);
+        }
+
+        function calcularMediaTurma() {
+            var mediaTurma = 0;
+            for (var i = 0; i < notas_alunos.length; i++) {
+                mediaTurma += notas_alunos[i];
+            }
+            mediaTurma /= notas_alunos.length;
+            document.getElementById("mediaTurma").innerHTML = "Média da turma: " + mediaTurma.toFixed(2);
+        }
+
+        var notas_alunos = [];
+    </script>
+</head>
+<body>
+    <h1>Situação da turma</h1>
+    <label>Nome do aluno:</label>
+    <input type="text" id="nome">
+    <br><br>
+    <label>Nota 1:</label>
+    <input type="text" id="nota1">
+    <br><br>
+    <label>Nota 2:</label>
+    <input type="text" id="nota2">
+    <br><br>
+    <button onclick="calcularMedia()">Exibir média do aluno</button>
+    <br><br>
+    <div id="resultado"></div>
+    <br><br>
+    <button onclick="calcularMediaTurma()">Exibir média da turma</button>
+    <br><br>
+    <div id="mediaTurma"></div>
+</body>
+</html>
